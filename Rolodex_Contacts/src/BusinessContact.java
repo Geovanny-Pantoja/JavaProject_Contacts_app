@@ -4,7 +4,7 @@
  * Assigement: SDC 330 prokect week 1 inheritance and composition
  * Class: BusinessContact extends Contact class 
  */
-public class BusinessContact extends Contact{
+public class BusinessContact extends Contact implements SummaryInfo{
 
     private String companyName;
     private String jobTitle;
@@ -41,7 +41,13 @@ public class BusinessContact extends Contact{
         this.workPhone = workPhone;
     }
 
+    
 
+    @Override
+    public String getSummary() {
+        
+        return String.format("Business Contact: %s %s\tCompany: %s%n",getfName(), getlName(), (companyName == null ? "Invalid" : companyName));
+    }
     @Override
     public String toString(){
         return String.format("%s%s%n%s%s%n%s%n%s%s",

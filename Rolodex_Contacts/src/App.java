@@ -1,3 +1,5 @@
+import java.util.ArrayList;
+
 /************
  * Name: Geovanny Pantoja 
  * Date: 11 March 2026
@@ -14,6 +16,7 @@ public class App {
         Address address2 = new Address();
         BusinessContact businessContact = new BusinessContact();
         PersonalContact personalContact = new PersonalContact();
+        ArrayList<SummaryInfo> contacts = new ArrayList<SummaryInfo>();
         boolean running = true;
 
         while(running){
@@ -28,7 +31,7 @@ public class App {
                 case "1":
                     output.clearScreen();
                     output.printSection("Businees Contact Entry");
-                    collectBusinessContact(input, businessContact, address1);
+                    collectBusinessContact(input, businessContact, address1, contacts);
                     System.out.println("BusinessContact Added Succesfully");
                     output.pause();
                     input.waitForEnter();
@@ -36,7 +39,7 @@ public class App {
                 case "2":
                     output.clearScreen();
                     output.printSection("Personal Contact Entry");
-                    collectPersonalContact(input, personalContact, address2);
+                    collectPersonalContact(input, personalContact, address2, contacts);
                     System.out.println("Personnal Contact Added Succesfully");
                     output.pause();
                     input.waitForEnter();
@@ -48,24 +51,33 @@ public class App {
                     output.printSection("Personal Contact");
                     System.out.println(personalContact.toString());
                     output.pause();
-
                     input.waitForEnter();    
                     break;
                 case "4":
+                    output.clearScreen();
+                     output.printSection("Summary Info");
+                    for (SummaryInfo c : contacts){
+                        System.out.println(c.getSummary());
+                    }
+                    output.pause();
+                    input.waitForEnter();  
+                    break;
+                case "5":
                     running = false;
                     System.out.println("Hope you enjoy the demo. App Closing... ");
-                    break;      
+                    break;                      
                 default:
                     System.err.println("Invalid option");
                     output.pause();
                     input.waitForEnter();
+
                     break;
             }
         } 
 
     }
 
-    public static void collectBusinessContact(InputHelper input, BusinessContact bc, Address address){
+    public static void collectBusinessContact(InputHelper input, BusinessContact bc, Address address, ArrayList<SummaryInfo> contacts){
         bc.setfName(input.getRequriedString("First Name: ", "First Name"));            
         bc.setlName(input.getRequriedString("Last Name: ", "Last Name"));
         bc.setEmail(input.getRequriedString("EMail: ", "Email"));
@@ -78,10 +90,11 @@ public class App {
         bc.setCompanyName(input.getRequriedString("Company Name: ", "Company"));
         bc.setJobTitle(input.getRequriedString("Job title: ", "Job title")); 
         bc.setWorkPhone(input.getRequriedString("Work Phone: ", "Work Phone"));
+        contacts.add(bc);
 
     }
     
-     public static void collectPersonalContact(InputHelper input, PersonalContact pc, Address address){
+     public static void collectPersonalContact(InputHelper input, PersonalContact pc, Address address, ArrayList<SummaryInfo> contacts){
         pc.setfName(input.getRequriedString("First Name: ", "First Name"));            
         pc.setlName(input.getRequriedString("Last Name: ", "Last Name"));
         pc.setEmail(input.getRequriedString("EMail: ", "Email"));
@@ -92,7 +105,8 @@ public class App {
         address.setZipCode(input.getRequriedString("Zip Code: ", "Zip Code"));
         pc.setAddress(address);
         pc.setRelationship(input.getRequriedString("Relationship: ", "Relationship"));
-        pc.setBirthday(input.getRequriedString("Birthday: ", "Birthday"));         
+        pc.setBirthday(input.getRequriedString("Birthday: ", "Birthday"));  
+        contacts.add(pc);       
     }
 
 

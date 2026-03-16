@@ -4,7 +4,7 @@
  * Assigement: SDC 330 prokect week 1 inheritance and composition
  * Class: PersonalContac extends Contact class 
  */
-public class PersonalContact extends Contact {
+public class PersonalContact extends Contact implements SummaryInfo{
     private String relationship;
     private String birthday;
 
@@ -33,6 +33,14 @@ public class PersonalContact extends Contact {
             throw new IllegalArgumentException("Birthday cannot be empty");
         }
         this.birthday = birthday;
+    }
+
+    
+
+    @Override
+    public String getSummary() {
+        
+        return String.format("Personal Contact: %s %s\tRelationship: %s%n",getfName(), getlName(), (relationship == null ? "Invalid" : relationship));
     }
 
     @Override

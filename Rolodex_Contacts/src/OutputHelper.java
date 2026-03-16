@@ -25,7 +25,8 @@ public class OutputHelper {
         System.out.println("1. Add/Update Business Contact Information");
         System.out.println("2. Add/Update Personal Contact Information");
         System.out.println("3. Display Contacts");
-        System.out.println("4. Exit Application\n");
+        System.out.println("4. Display Contacts Summary");
+        System.out.println("5. Exit Application\n");
     }
 
     public void pause(){
