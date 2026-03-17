@@ -1,8 +1,8 @@
 /************
  * Name: Geovanny Pantoja 
- * Date: 11 March 2026
+ * Date: 17 March 2026
  * Assigement: SDC 330 prokect week 1 inheritance and composition
- * Class: OutputHelper has methods to displaus meny and messages and instructions
+ * Class: OutputHelper has methods to display the menu, messages and instructions
  */
 public class OutputHelper {
 
@@ -12,8 +12,8 @@ public class OutputHelper {
 
     public void printHeader(){
         printDivider();
-        System.out.println("Week 1 Geovanny Pantoja");
-        System.out.println("Inheratance, Composition and User Interaction");
+        System.out.println("Week 2 Geovanny Pantoja");
+        System.out.println("Interface and Polymorphism");
         printDivider();
     }
 

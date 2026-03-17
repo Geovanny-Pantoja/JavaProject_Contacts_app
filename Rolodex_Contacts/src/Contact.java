@@ -1,8 +1,10 @@
 /************
  * Name: Geovanny Pantoja 
- * Date: 11 March 2026
+ * Date: 17 March 2026
  * Assigement: SDC 330 prokect week 1 inheritance and composition
- * Class: Contact Class is a superclass and contains Address class 
+ * Class: Contact Class is a superclass that is inherited by BusinessContact and PersonalContact.
+ * The subclasses inherited the properties and can utilize its concret methods.  The class also has the Address class 
+ * as a property demonstrating composition. 
  */
 public class Contact {
     private String fName;

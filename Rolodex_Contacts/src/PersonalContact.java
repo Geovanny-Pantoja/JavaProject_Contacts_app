@@ -1,9 +1,11 @@
 /************
  * Name: Geovanny Pantoja 
- * Date: 11 March 2026
+ * Date: 17 March 2026
  * Assigement: SDC 330 prokect week 1 inheritance and composition
- * Class: PersonalContac extends Contact class 
+ * Class: PersonalContact extends Contact class demonstrating inheritance and implements SummaryInfo,
+ * demonstrating abstraction via the SummaryInfo interface.  The method getSummary is implemented to fullfill the contract.
  */
+ 
 public class PersonalContact extends Contact implements SummaryInfo{
     private String relationship;
     private String birthday;

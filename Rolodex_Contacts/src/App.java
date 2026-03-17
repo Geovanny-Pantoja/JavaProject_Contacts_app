@@ -2,9 +2,13 @@ import java.util.ArrayList;
 
 /************
  * Name: Geovanny Pantoja 
- * Date: 11 March 2026
+ * Date: 17 March 2026
  * Assigement: SDC 330 prokect week 1 inheritance and composition
- * Class: Main controls flow and calss methods from other clases to display output 
+ * Class: Main controls flow and calss methods from other clases to display output.  
+ * Inheritance is shown by BusinessContact and PersonalContact extending a shared Contact base class, 
+ * reusing its common fields and behavior. Composition appears when each contact is built using an Address object, forming a “has a” relationship.
+ * Abstraction is demonstrated through the SummaryInfo interface, which defines the abstract getSummary() behavior that each contact type must implement.
+ * Polymorphism occurs when both contact types are stored in an ArrayList<SummaryInfo> and processed through the same interface reference, allowing each object’s own getSummary() method to run at runtime.
  */
 
 public class App {

@@ -1,8 +1,9 @@
 /************
  * Name: Geovanny Pantoja 
- * Date: 11 March 2026
+ * Date: 17 March 2026
  * Assigement: SDC 330 prokect week 1 inheritance and composition
- * Class: Address will be usused inside contact to demonstrate composition
+ * Class: Address is used as a property in the contact class demonstrating the has a relationship
+ * which satifies the composition requirement.
  */
 public class Address {
 
