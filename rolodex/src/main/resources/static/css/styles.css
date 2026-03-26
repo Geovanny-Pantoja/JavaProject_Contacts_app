@@ -1,0 +1,77 @@
+body {
+    font-family: Arial, sans-serif;
+    margin: 0;
+    padding: 0;
+    background: #f5f5f5;
+}
+
+header {
+    background: #2a4d8f;
+    color: white;
+    padding: 20px;
+    text-align: center;
+    border-top-left-radius: 8px;
+    border-top-right-radius: 8px;
+}
+.nav-rounded {
+    border-bottom-left-radius: 8px;
+    border-bottom-right-radius: 8px;
+}
+header h1 {
+    margin: 0;
+    font-size: 28px;
+}
+
+.header-sticky{
+    z-index: 1030;
+}
+.nav-link {
+    transition: transform 0.15s ease, color 0.15s ease;
+}
+
+.nav-link:hover {
+    transform: scale(1.1);
+    color: #ffeb3b !important; /* bright yellow highlight */
+}
+
+.nav-item.dropdown:hover .dropdown-menu {
+    display: block;
+    margin-top: 0; /* removes the jump */
+}
+
+.week {
+    font-size: 14px;
+    opacity: 0.8;
+}
+
+.content {
+    padding: 30px;
+}
+/* Dropdown menu background */
+.dropdown-menu {
+    background-color: #2a4d8f;      /* same blue as your header */
+    border: none;
+    padding: 0;
+    border-radius: 6px;
+}
+
+/* Dropdown items */
+.dropdown-item {
+    color: white;
+    padding: 10px 20px;
+    font-weight: 500;
+}
+
+/* Hover effect */
+.dropdown-item:hover {
+    background-color: #1f355e;     /* darker blue */
+    color: #fff;
+}
+.card {
+    border-radius: 10px;
+}
+
+.card-body {
+    padding: 30px;
+}
+

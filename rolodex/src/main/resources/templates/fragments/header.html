@@ -1,0 +1,41 @@
+<div th:fragment="header">
+    <div class="sticky-top bg-white shadow-sm header-sticky">
+        <!-- HEADER -->
+        <header class="text-center py-4 header-rounded">
+            <div class="fw-bold">Project Week 3</div>
+            <h1 class="fw-bold">Rolodex Contact Manager</h1>
+            <div>Created by: Geovanny Pantoja</div>
+        </header>
+
+        <!-- NAVIGATION MENU -->
+        <nav class="navbar navbar-expand-lg navbar-dark bg-primary nav-rounded mb-4">
+            <div class="container-fluid">
+                <div class="navbar-nav mx-auto">
+
+                    <!-- HOME -->
+                    <a class="nav-link fw-bold text-white mx-3" th:href="@{/}">
+                        Home
+                    </a>
+
+                    <!-- ADD CONTACT -->
+                    <a class="nav-link fw-bold text-white mx-3" th:href="@{/contacts/add}">
+                        Add Contact
+                    </a>
+
+                    <!-- CONTACT LIST DROPDOWN -->
+                    <div class="nav-item dropdown mx-3">
+                        <a class="nav-link dropdown-toggle fw-bold text-white" href="#" id="contactDropdown"
+                            role="button" data-bs-toggle="dropdown">
+                            Contact List
+                        </a>
+                        <ul class="dropdown-menu text-center" aria-labelledby="contactDropdown">
+                            <li><a class="dropdown-item" th:href="@{/contacts/business}">Business Contacts</a></li>
+                            <li><a class="dropdown-item" th:href="@{/contacts/family}">Family Contacts</a></li>
+                            <li><a class="dropdown-item" th:href="@{/contacts/friend}">Friend Contacts</a></li>
+                        </ul>
+                    </div>
+                </div>
+            </div>
+        </nav>
+    </div>
+</div>

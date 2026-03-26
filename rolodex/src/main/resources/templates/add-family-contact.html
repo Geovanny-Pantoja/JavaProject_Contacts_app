@@ -1,0 +1,83 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+
+<head>
+    <title>Add Personal Contact</title>    
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css" rel="stylesheet">
+    <link rel="stylesheet" th:href="@{/css/styles.css}">
+</head>
+
+<body class="bg-light">
+    <!-- HEADER + NAV -->    
+    <div class="container mt-4 mb-5">
+        <div th:replace="~{fragments/header :: header}"></div>        
+        <div class="container mt-4">
+            <div class="card shadow-sm mt-4">
+                <div class="card-body">
+                    <h2 class="text-center mb-4">Add a New Family Contact</h2>
+                    <!-- SUCCESS / ERROR MESSAGES (if needed later) -->
+                    <div th:if="${success}" class="alert alert-success text-center">
+                        <span th:text="${success}"></span>
+                    </div>
+                    <div th:if="${error}" class="alert alert-danger text-center">
+                        <span th:text="${error}"></span>
+                    </div>
+                    <!-- ADD PERSONAL CONTACT FORM -->
+                    <form th:action="@{/contacts/save-family}" th:object="${contact}" method="post"
+                        class="w-50 mx-auto">
+                        <input type="hidden" name="entity" value="family">
+                        <div class="mb-3">
+                            <label for="fname" class="form-label fw-bold">First Name</label>
+                            <input type="text" id="fname" class="form-control" th:field="*{fName}" required>
+                        </div>
+                        <div class="mb-3">
+                            <label for="lname" class="form-label fw-bold">Last Name</label>
+                            <input type="text" id="lname" class="form-control" th:field="*{lName}">
+                        </div>
+                        <div class="mb-3">
+                            <label for="cellNumber" class="form-label fw-bold">Phone Number</label>
+                            <input type="text" id="cellNumber" class="form-control" th:field="*{cellNumber}" required>
+                        </div>
+                        <div class="mb-3">
+                            <label for="email" class="form-label fw-bold">Email</label>
+                            <input type="email" id="email" class="form-control" th:field="*{email}" required>
+                        </div>
+                        <div class="mb-3">
+                            <label for="birthday" class="form-label fw-bold">Birthday</label>
+                            <input type="date" id="birthday" class="form-control" th:field="*{birthday}" required>
+                        </div>
+                        <div class="mb-3">
+                            <label for="relationship" class="form-label fw-bold">Relationship</label>
+                            <input type="text" id="relationship" class="form-control" th:field="*{relationship}"
+                                required>
+                        </div>
+                        <h5 class="mt-4">Address</h5>
+                        <div class="mb-3">
+                            <label for="street" class="form-label fw-bold">Street</label>
+                            <input type="text" id="street" class="form-control" th:field="*{address.street}" required>
+                        </div>
+                        <div class="mb-3">
+                            <label for="city" class="form-label fw-bold">City</label>
+                            <input type="text" id="city" class="form-control" th:field="*{address.city}" required>
+                        </div>
+                        <div class="mb-3">
+                            <label for="state" class="form-label fw-bold">State</label>
+                            <input type="text" id="state" class="form-control" th:field="*{address.state}" required>
+                        </div>
+                        <div class="mb-3">
+                            <label for="zipCode" class="form-label fw-bold">Zip Code</label>
+                            <input type="text" id="zipCode" class="form-control" th:field="*{address.zipCode}" required>
+                        </div>
+                        <div class="d-flex justify-content-between mt-4">
+                            <a th:href="@{/contacts/family}" class="btn btn-secondary">Cancel</a>
+                            <button type="submit" class="btn btn-primary px-4">Add Contact</button>
+                        </div>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </div>
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.bundle.min.js"></script>
+</body>
+
+</html>

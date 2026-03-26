@@ -1,0 +1,8 @@
+FAMILY|2|Adrian|Pantojis|adri@cloud.com|302457894|35 old stret|Miami|FL|23145|2011-02-08|Son
+FAMILY|3|Andrea|Bartel|andie@hotmail.com|3024545797|124 same street|Virginia beach|VA|145789|1984-05-23|Spouse
+FAMILY|4|Vilma|Figueroa|mami@hotmail.com|302545797|305 miami st|Miami|FL|22554|1968-06-26|Mami
+BUSINESS|6|Austin |Pearson|aus.@hotmail.com|303264558|122 main street|Boston |ma|12457|CACI|IT Specialist |30214545577
+BUSINESS|7|Christine|Ortiz|cortiz@emial.com|302545478|79 main street |San diego |CA|12456|Trewon Technologies|IT Specialist |302145979
+FRIEND|9|Javier |Vazques|javi@hotmail.com|3029453184|232 disney ave |Orlando|FL|23145|School
+FRIEND|10|Steven|Arevalo|steven@hotmal.com|794547894|3443 somwhere street|San diego |CA|12457|Military Japan
+FRIEND|11|John|Smith|hs@mail.com|3023214587|124 main street|Virginia Beach|VA|12457|Gym
