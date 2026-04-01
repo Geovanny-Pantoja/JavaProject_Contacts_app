@@ -5,19 +5,21 @@
 */
 package edu.pantoja.rolodex.controllers;
 
+import java.util.List;
+
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.RequestMapping;
+
+import edu.pantoja.rolodex.Database.ContactDAO;
+import edu.pantoja.rolodex.Database.SQLiteContactDAO;
 
 import edu.pantoja.rolodex.model.BusinessContact;
 import edu.pantoja.rolodex.model.Contact;
 import edu.pantoja.rolodex.model.FamilyContact;
 import edu.pantoja.rolodex.model.FriendContact;
 import edu.pantoja.rolodex.service.ContactService;
-import edu.pantoja.rolodex.storage.ContactSerializer;
-import edu.pantoja.rolodex.storage.EntitySerializer;
-import edu.pantoja.rolodex.storage.FileStorage;
-import edu.pantoja.rolodex.storage.Storage;
+
 
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.ModelAttribute;
@@ -33,15 +35,15 @@ public class ContactController {
 
     private final ContactService contactService;
 
-    public ContactController() {
-        EntitySerializer<Contact> serializer = new ContactSerializer();
-        Storage<Contact> storage = new FileStorage<>(serializer);
-        this.contactService = new ContactService(storage);
+    public ContactController() {       
+       
+        ContactDAO dao = new SQLiteContactDAO();
+        this.contactService = new ContactService(dao);
     }
 
     @GetMapping()
     public String listContacts(Model model) {
-        model.addAttribute("contacts", contactService.loadContacts());
+        model.addAttribute("contacts", contactService.getAllContacts());
         return "contacts";
     }
 
@@ -85,17 +87,18 @@ public class ContactController {
     public String saveFamily(@ModelAttribute("contact") FamilyContact contact,
             Model model,
             RedirectAttributes redirectAttributes) {
+        
+        List<String> result = contactService.addContact(contact);
 
-        if (!contactService.validate(contact)) {
-            model.addAttribute("error", "Invalid contact information.");
+        if (!result.contains("SUCCESS")) {
+            model.addAttribute("errors", result);
             model.addAttribute("contact", contact);
             return "add-family-contact";
         }
 
-        contactService.addContact(contact);
-        model.addAttribute("success", "Family contact added!");
-        model.addAttribute("contact", new FamilyContact()); // Clear the form
-        return "add-family-contact";
+        
+        redirectAttributes.addFlashAttribute("success", "Family Contact Added!");
+        return "redirect:/contacts/add-family";
     }
 
     // get method to show the form to add a business contact
@@ -112,14 +115,13 @@ public class ContactController {
     public String saveBusiness(@ModelAttribute("contact") BusinessContact contact,
             Model model,
             RedirectAttributes redirectAttributes) {
+        List<String> result = contactService.addContact(contact);
 
-        if (!contactService.validate(contact)) {
-            model.addAttribute("error", "Invalid contact information.");
+        if (!result.contains("SUCCESS")) {
+            model.addAttribute("errors", result);
             model.addAttribute("contact", contact);
-            return "add-business-contact";
-        }
+            return "add-business-contact";        }
 
-        contactService.addContact(contact);
         redirectAttributes.addFlashAttribute("success", "Business contact added!");
         return "redirect:/contacts/add-business";
     }
@@ -139,14 +141,14 @@ public class ContactController {
     public String saveFriend(@ModelAttribute("contact") FriendContact contact,
             Model model,
             RedirectAttributes redirectAttributes) {
+        List<String> result = contactService.addContact(contact);
 
-        if (!contactService.validate(contact)) {
-            model.addAttribute("error", "Invalid contact information.");
+        if (!result.contains("SUCCESS")) {
+            model.addAttribute("errors", result);
             model.addAttribute("contact", contact);
             return "add-friend-contact";
         }
-
-        contactService.addContact(contact);
+        
         redirectAttributes.addFlashAttribute("success", "Friend contact added!");
         return "redirect:/contacts/add-friend";
     }
@@ -157,7 +159,7 @@ public class ContactController {
     @GetMapping("/family")
     public String showFamilyContacts(Model model) {
 
-        model.addAttribute("contacts", contactService.getFamilyContacts());
+        model.addAttribute("contacts", contactService.getContactsByType("FAMILY"));
         return "family-contacts";
     }
 
@@ -166,13 +168,13 @@ public class ContactController {
     @GetMapping("/business")
     public String showBusinessContacts(Model model) {
 
-        model.addAttribute("contacts", contactService.getBusinessContacts());
+        model.addAttribute("contacts", contactService.getContactsByType("BUSINESS"));
         return "business-contact";
     }
 
     @GetMapping("/friend")
     public String showFriendContacts(Model model) {
-        model.addAttribute("contacts", contactService.getFriendContacts());
+        model.addAttribute("contacts", contactService.getContactsByType("FRIEND"));
         return "friend-contacts";
     }
     
@@ -200,14 +202,14 @@ public class ContactController {
     @PostMapping("/edit/family")
     public String updateFamilyContact(@ModelAttribute FamilyContact contact,
             RedirectAttributes redirectAttributes, Model model) {
+        List<String> result = contactService.updateContact(contact);
 
-        if (!contactService.validate(contact)) {
-            model.addAttribute("error", "Invalid contact information.");
+        if (!result.contains("SUCCESS")) {
+            model.addAttribute("errors", result);
             model.addAttribute("contact", contact);
             return "edit-family-contact";
         }
-
-        contactService.updateContact(contact.getId(), contact);
+        
         redirectAttributes.addFlashAttribute("success", "Contact updated successfully.");
 
         return "redirect:/contacts/family";
@@ -215,24 +217,25 @@ public class ContactController {
     }
     @PostMapping("/edit/business")
     public String updateBusinessContac(@ModelAttribute BusinessContact contact, RedirectAttributes redirectAttributes, Model model) {
-        if (!contactService.validate(contact)) {
-            model.addAttribute("error", "Invalid contact information.");
+        List<String> result = contactService.updateContact(contact);
+        if (!result.contains("SUCCESS")) {
+            model.addAttribute("errors", result);
             model.addAttribute("contact", contact);
             return "edit-business-contact";
-        }
-        contactService.updateContact(contact.getId(), contact);
+        }        
         redirectAttributes.addFlashAttribute("success", "Contact updated successfull");
         return "redirect:/contacts/business";
     }  
 
      @PostMapping("/edit/friend")
     public String updateFriendContac(@ModelAttribute FriendContact contact, RedirectAttributes redirectAttributes, Model model) {
-        if (!contactService.validate(contact)) {
-            model.addAttribute("error", "Invalid contact information.");
+        List<String> result = contactService.updateContact(contact);
+        if (!result.contains("SUCCESS")) {
+            model.addAttribute("errors", result);
             model.addAttribute("contact", contact);
             return "edit-friend-contact";
         }
-        contactService.updateContact(contact.getId(), contact);
+        
         redirectAttributes.addFlashAttribute("success", "Contact updated successfull");
         return "redirect:/contacts/friend";
     }

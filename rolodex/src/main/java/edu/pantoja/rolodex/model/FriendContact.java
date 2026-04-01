@@ -9,9 +9,11 @@ package edu.pantoja.rolodex.model;
 public class FriendContact extends Contact{
     private String howWeMet;
     
+    
 
     public FriendContact() {
         super();
+        setType("FRIEND");
     }   
 
     public FriendContact(
@@ -26,6 +28,24 @@ public class FriendContact extends Contact{
 
         // Pass serviceName as fName, leave lName empty
         super(id, fName, lName, email, cellNumber, address);
+        setType("FRIEND");
+        setHowWeMet(howWeMet);
+        
+        
+    }
+
+    public FriendContact(
+            String fName, 
+            String lName,
+            String email,
+            String cellNumber,
+            Address address,
+            String howWeMet
+            ) {
+
+        // Pass serviceName as fName, leave lName empty
+        super(fName, lName, email, cellNumber, address);
+        setType("FRIEND");
         setHowWeMet(howWeMet);
         
         

@@ -13,9 +13,11 @@ public abstract class Contact {
     private String email;
     private String cellNumber;
     private Address address;
+    private String type;
 
     public Contact(){
         this.address = new Address();
+
     }
 
     public Contact(int id, String fName, String lName, String email, String cellNumber, Address address){
@@ -27,6 +29,16 @@ public abstract class Contact {
         setAddress(address);
 
     }
+   
+
+    public Contact(String fName, String lName, String email, String cellNumber, Address address) {
+        this.fName = fName;
+        this.lName = lName;
+        this.email = email;
+        this.cellNumber = cellNumber;
+        this.address = address;
+    }
+
     public int getId() {
         return id;
     }
@@ -68,6 +80,14 @@ public abstract class Contact {
     public void setAddress(Address address) {
        this.address = address;
     }
+
+    public String getType() {
+        return type;
+    }
+    protected void setType(String type) {
+        this.type = type;
+    }
+   
    
     // keeping in case debugging is needed.
     @Override

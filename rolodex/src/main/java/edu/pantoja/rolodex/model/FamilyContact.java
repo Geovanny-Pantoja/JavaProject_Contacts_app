@@ -7,19 +7,32 @@ package edu.pantoja.rolodex.model;
  */
  
 public class FamilyContact extends Contact{
+     private String birthday;
     private String relationship;
-    private String birthday;
+   
+    
 
     public FamilyContact(){
         super();
+        setType("FAMILY");
     }
         
     public FamilyContact(int id, String fName, String lName, String email, String cellnumber, Address address,
             String birthday, String relationship ) {
-        super(id, fName, lName, email, cellnumber, address);        
+        super(id, fName, lName, email, cellnumber, address);  
+        setType("FAMILY");      
         setBirthday(birthday);
         setRelationship(relationship);
     }
+
+    public FamilyContact(String fName, String lName, String email, String cellnumber, Address address,
+            String birthday, String relationship) {
+        super(fName, lName, email, cellnumber, address);  
+        setType("FAMILY");      
+        setBirthday(birthday);
+        setRelationship(relationship);
+    }
+
     public String getRelationship() {
         return relationship;
     }

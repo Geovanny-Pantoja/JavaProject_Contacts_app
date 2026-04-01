@@ -21,8 +21,10 @@
                     <div th:if="${success}" class="alert alert-success text-center">
                         <span th:text="${success}"></span>
                     </div>
-                    <div th:if="${error}" class="alert alert-danger text-center">
-                        <span th:text="${error}"></span>
+                    <div th:if="${errors}" class="alert alert-danger text-center">
+                        <ul>
+                            <li th:each="err : ${errors}" th:text="${err}"></li>
+                        </ul>
                     </div>
                     <form th:action="@{/contacts/save-business}" th:object="${contact}" method="post"
                         class="w-50 mx-auto">

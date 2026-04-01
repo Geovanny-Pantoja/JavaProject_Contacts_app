@@ -13,15 +13,28 @@ public class BusinessContact extends Contact{
 
     public BusinessContact(){
         super();
+        setType("BUSINESS");
     }
     
     public BusinessContact(int id, String fName, String lName, String email, String cellNumber, Address address, String companyName, String jobTitle, String workPhone){
         super(id, fName, lName, email, cellNumber, address);
+        setType("BUSINESS");
         setCompanyName(companyName);
         setJobTitle(jobTitle);
         setWorkPhone(workPhone);
 
     }
+
+    public BusinessContact(String fName, String lName, String email, String cellNumber, Address address, String companyName, String jobTitle, String workPhone){
+        super(fName, lName, email, cellNumber, address);
+        setType("BUSINESS");
+        setCompanyName(companyName);
+        setJobTitle(jobTitle);
+        setWorkPhone(workPhone);
+
+    }
+
+
     
     public String getCompanyName() {
         return companyName;
