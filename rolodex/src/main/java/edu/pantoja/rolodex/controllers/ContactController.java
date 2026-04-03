@@ -19,7 +19,7 @@ import edu.pantoja.rolodex.model.Contact;
 import edu.pantoja.rolodex.model.FamilyContact;
 import edu.pantoja.rolodex.model.FriendContact;
 import edu.pantoja.rolodex.service.ContactService;
-
+import edu.pantoja.rolodex.util.StateList;
 
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.ModelAttribute;
@@ -28,15 +28,14 @@ import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 import org.springframework.web.bind.annotation.PostMapping;
 
-
 @Controller
 @RequestMapping("/contacts")
 public class ContactController {
 
     private final ContactService contactService;
 
-    public ContactController() {       
-       
+    public ContactController() {
+
         ContactDAO dao = new SQLiteContactDAO();
         this.contactService = new ContactService(dao);
     }
@@ -59,14 +58,11 @@ public class ContactController {
 
         switch (entity.toLowerCase()) {
             case "family":
-                model.addAttribute("contact", new FamilyContact());
-                return "add-family-contact";
+                return "redirect:/contacts/add-family";
             case "business":
-                model.addAttribute("contact", new BusinessContact());
-                return "add-business-contact";
+                return "redirect:/contacts/add-business";
             case "friend":
-                model.addAttribute("contact", new FriendContact());
-                return "add-friend-contact";
+                return "redirect:/contacts/add-friend";
             default:
                 return "redirect:/contacts/add"; // Redirect back to the form if an invalid type is provided
         }
@@ -79,6 +75,7 @@ public class ContactController {
         if (!model.containsAttribute("contact")) {
             model.addAttribute("contact", new FamilyContact());
         }
+        model.addAttribute("states", StateList.getStates());
         return "add-family-contact";
     }
 
@@ -87,16 +84,15 @@ public class ContactController {
     public String saveFamily(@ModelAttribute("contact") FamilyContact contact,
             Model model,
             RedirectAttributes redirectAttributes) {
-        
+
         List<String> result = contactService.addContact(contact);
 
         if (!result.contains("SUCCESS")) {
-            model.addAttribute("errors", result);
-            model.addAttribute("contact", contact);
-            return "add-family-contact";
+            redirectAttributes.addFlashAttribute("errors", result);
+            redirectAttributes.addFlashAttribute("contact", contact);
+            return "redirect:/contacts/add-family";
         }
 
-        
         redirectAttributes.addFlashAttribute("success", "Family Contact Added!");
         return "redirect:/contacts/add-family";
     }
@@ -107,6 +103,7 @@ public class ContactController {
         if (!model.containsAttribute("contact")) {
             model.addAttribute("contact", new BusinessContact());
         }
+        model.addAttribute("states", StateList.getStates());
         return "add-business-contact";
     }
 
@@ -118,21 +115,22 @@ public class ContactController {
         List<String> result = contactService.addContact(contact);
 
         if (!result.contains("SUCCESS")) {
-            model.addAttribute("errors", result);
-            model.addAttribute("contact", contact);
-            return "add-business-contact";        }
+            redirectAttributes.addFlashAttribute("errors", result);
+            redirectAttributes.addFlashAttribute("contact", contact);
+            return "redirect:/contacts/add-business";
+        }
 
         redirectAttributes.addFlashAttribute("success", "Business contact added!");
         return "redirect:/contacts/add-business";
     }
 
-    
-    //get method to show add friend form 
+    // get method to show add friend form
     @GetMapping("/add-friend")
     public String showFriendForm(Model model) {
         if (!model.containsAttribute("contact")) {
             model.addAttribute("contact", new FriendContact());
         }
+        model.addAttribute("states", StateList.getStates());
         return "add-friend-contact";
     }
 
@@ -144,12 +142,13 @@ public class ContactController {
         List<String> result = contactService.addContact(contact);
 
         if (!result.contains("SUCCESS")) {
-            model.addAttribute("errors", result);
-            model.addAttribute("contact", contact);
-            return "add-friend-contact";
+            redirectAttributes.addFlashAttribute("errors", result);
+            redirectAttributes.addFlashAttribute("contact", contact);
+            return "redirect:/contacts/add-friend";
         }
-        
+
         redirectAttributes.addFlashAttribute("success", "Friend contact added!");
+
         return "redirect:/contacts/add-friend";
     }
 
@@ -177,7 +176,6 @@ public class ContactController {
         model.addAttribute("contacts", contactService.getContactsByType("FRIEND"));
         return "friend-contacts";
     }
-    
 
     // get method to show the form to edit a contact based on its type
     @GetMapping("/edit/{id}")
@@ -186,14 +184,17 @@ public class ContactController {
 
         if (contact instanceof FamilyContact) {
             model.addAttribute("contact", contact);
+            model.addAttribute("states", StateList.getStates());
             return "edit-family-contact";
         }
         if (contact instanceof BusinessContact) {
             model.addAttribute("contact", contact);
+            model.addAttribute("states", StateList.getStates());
             return "edit-business-contact";
         }
         if (contact instanceof FriendContact) {
             model.addAttribute("contact", contact);
+            model.addAttribute("states", StateList.getStates());
             return "edit-friend-contact";
         }
         return "redirect:/contacts";
@@ -207,39 +208,44 @@ public class ContactController {
         if (!result.contains("SUCCESS")) {
             model.addAttribute("errors", result);
             model.addAttribute("contact", contact);
+            model.addAttribute("states", StateList.getStates());
             return "edit-family-contact";
         }
-        
+
         redirectAttributes.addFlashAttribute("success", "Contact updated successfully.");
 
         return "redirect:/contacts/family";
 
     }
+
     @PostMapping("/edit/business")
-    public String updateBusinessContac(@ModelAttribute BusinessContact contact, RedirectAttributes redirectAttributes, Model model) {
+    public String updateBusinessContac(@ModelAttribute BusinessContact contact, RedirectAttributes redirectAttributes,
+            Model model) {
         List<String> result = contactService.updateContact(contact);
         if (!result.contains("SUCCESS")) {
             model.addAttribute("errors", result);
             model.addAttribute("contact", contact);
+            model.addAttribute("states", StateList.getStates());
             return "edit-business-contact";
-        }        
+        }
         redirectAttributes.addFlashAttribute("success", "Contact updated successfull");
         return "redirect:/contacts/business";
-    }  
+    }
 
-     @PostMapping("/edit/friend")
-    public String updateFriendContac(@ModelAttribute FriendContact contact, RedirectAttributes redirectAttributes, Model model) {
+    @PostMapping("/edit/friend")
+    public String updateFriendContac(@ModelAttribute FriendContact contact, RedirectAttributes redirectAttributes,
+            Model model) {
         List<String> result = contactService.updateContact(contact);
         if (!result.contains("SUCCESS")) {
             model.addAttribute("errors", result);
             model.addAttribute("contact", contact);
+            model.addAttribute("states", StateList.getStates());
             return "edit-friend-contact";
         }
-        
+
         redirectAttributes.addFlashAttribute("success", "Contact updated successfull");
         return "redirect:/contacts/friend";
     }
-    
 
     @GetMapping("/delete/{id}")
     public String deleteContact(@PathVariable int id,

@@ -61,11 +61,12 @@
                         </div>
                         <div class="col">
                             <label class="form-label">Cell Number</label>
-                            <input type="text" th:field="*{cellNumber}" class="form-control" required>
+                            <input type="text" placeholder="ex 1234569874" th:field="*{cellNumber}" class="form-control"
+                                required>
                         </div>
                         <div class="col">
                             <label class="form-label">Work Phone</label>
-                            <input type="text" th:field="*{workPhone}" class="form-control">
+                            <input type="text" placeholder="ex 1234569874" th:field="*{workPhone}" class="form-control">
                         </div>
                     </div>
 
@@ -85,11 +86,16 @@
                     <div class="row mb-4">
                         <div class="col-4">
                             <label class="form-label">State</label>
-                            <input type="text" th:field="*{address.state}" class="form-control" required>
+                            <select class="form-control" th:field="*{address.state}" required>
+                                <option value="">Select a state</option>
+                                <option th:each="s : ${states}" th:value="${s}" th:text="${s}">
+                                </option>
+                            </select>
                         </div>
                         <div class="col-4">
                             <label class="form-label">Zip Code</label>
-                            <input type="text" th:field="*{address.zipCode}" class="form-control" required>
+                            <input type="text" placeholder="ex 12345 or 12345-4546" th:field="*{address.zipCode}"
+                                class="form-control" required>
                         </div>
                     </div>
                     <button type="submit" class="btn btn-primary">Save Changes</button>
